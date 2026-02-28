@@ -152,16 +152,22 @@ int main(int argc, char *argv[]) {
     char *goal, *filename;
     int n, d;
     double **X, **result = NULL;
+
     if (argc != 3) error_exit();
+
     goal = argv[1];
     filename = argv[2];
     X = read_data(filename, &n, &d);
+
     if (strcmp(goal, "sym") == 0) {
         result = compute_sym(X, n, d);
+
     } else if (strcmp(goal, "ddg") == 0) {
         result = compute_ddg(X, n, d);
+
     } else if (strcmp(goal, "norm") == 0) {
         result = compute_norm(X, n, d);
+        
     } else {
         free_matrix(X, n);
         error_exit();

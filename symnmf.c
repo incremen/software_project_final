@@ -150,7 +150,7 @@ static double **read_data(const char *filename, int *n, int *d) {
 /* Main: C interface for sym, ddg, norm */
 int main(int argc, char *argv[]) {
     char *goal, *filename;
-    int n, d;
+    int n, d; /*n is # of rows, d # of columns*/
     double **X, **result = NULL;
 
     if (argc != 3) error_exit();
@@ -158,6 +158,10 @@ int main(int argc, char *argv[]) {
     goal = argv[1];
     filename = argv[2];
     X = read_data(filename, &n, &d);
+
+    printf("Input matrix is:\n");
+    print_matrix(X, n ,d);
+    printf("\n");
 
     if (strcmp(goal, "sym") == 0) {
         result = compute_sym(X, n, d);
@@ -167,11 +171,13 @@ int main(int argc, char *argv[]) {
 
     } else if (strcmp(goal, "norm") == 0) {
         result = compute_norm(X, n, d);
-        
+
     } else {
         free_matrix(X, n);
         error_exit();
     }
+
+    printf("Result:\n");
     print_matrix(result, n, n);
     free_matrix(result, n);
     free_matrix(X, n);

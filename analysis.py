@@ -19,7 +19,6 @@ def init_H(W_list, n, k):
     return H_np.tolist()
 
 def main():
-    print("Running Analysis...")
     if len(sys.argv) != 3:
         print("An Error Has Occurred")
         sys.exit(1)

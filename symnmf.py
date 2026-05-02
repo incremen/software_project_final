@@ -10,7 +10,11 @@ def check_arguments():
     if len(sys.argv) != 4:
         print(ERR_MSG)
         sys.exit(1)
-    k = int(sys.argv[1])
+    try:
+        k = int(sys.argv[1])
+    except ValueError:
+        print(ERR_MSG)
+        sys.exit(1)
     if k <= 1:
         print(ERR_MSG)
         sys.exit(1)
@@ -53,6 +57,9 @@ def generate_H(W, n, k):
 def main():
     k, goal, file_name = check_arguments()
     data_points, n = read_data(file_name)
+    if k >= n:
+        print(ERR_MSG)
+        sys.exit(1)
     result = None
     if goal == "symnmf":
         W = symnmf.norm(data_points)

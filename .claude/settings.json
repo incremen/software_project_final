@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tar -czvf 216228510_215673427_project.tar.gz 216228510_215673427_project)"
+    ]
+  }
+}

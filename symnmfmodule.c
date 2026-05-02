@@ -46,7 +46,7 @@ static PyObject* sym_wrapper(PyObject* self, PyObject* args) {
     // Get dimensions
     n = PyObject_Length(py_datapoints);
     d = PyObject_Length(PyList_GetItem(py_datapoints, 0));
-    printf("Received n: %d, d: %d\n", n, d); // Debug print
+    // printf("Received n: %d, d: %d\n", n, d); // Debug print
     // Convert to C
     double** X = py_list_to_c_matrix(py_datapoints, n, d);
 

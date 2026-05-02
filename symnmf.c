@@ -159,9 +159,9 @@ int main(int argc, char *argv[]) {
     filename = argv[2];
     X = read_data(filename, &n, &d);
 
-    printf("Input matrix is:\n");
-    print_matrix(X, n ,d);
-    printf("\n");
+    /* printf("Input matrix is:\n"); */
+    /* print_matrix(X, n ,d); */
+    /* printf("\n"); */
 
     if (strcmp(goal, "sym") == 0) {
         result = compute_sym(X, n, d);
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
         error_exit();
     }
 
-    printf("Result:\n");
+    /* printf("Result:\n"); */
     print_matrix(result, n, n);
     free_matrix(result, n);
     free_matrix(X, n);

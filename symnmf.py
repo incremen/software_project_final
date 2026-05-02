@@ -72,7 +72,7 @@ def main():
     elif goal == "norm":
         result = symnmf.norm(data_points)
     for row in result:
-        print(row)
+        print(",".join(f"{v:.4f}" for v in row))
 
         
 if __name__ == "__main__":

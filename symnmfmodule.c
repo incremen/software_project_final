@@ -136,10 +136,9 @@ static PyObject* symnmf_wrapper(PyObject* self, PyObject* args) {
     double** W = py_list_to_c_matrix(py_W, n, n);
     double** result = optimize_symnmf(W, H, n, k);
     PyObject* py_result = c_matrix_to_py_list(result, n, k);
-    
     // Free memory
-    free_matrix(W, n);
     free_matrix(H, n);
+    free_matrix(W, n);
 
     return py_result;
 }

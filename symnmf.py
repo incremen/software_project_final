@@ -55,13 +55,9 @@ def main():
     data_points, n = read_data(file_name)
     result = None
     if goal == "symnmf":
-        print("Running SymNMF...")
         W = symnmf.norm(data_points)
-        print("Generating H...")
         H = generate_H(W, n, k)
-        print("Running SymNMF C Extension...")
         result = symnmf.symnmf(W, H)
-        print("SymNMF Result:")
     elif goal == "ddg":
         result = symnmf.ddg(data_points)
     elif goal == "sym":
@@ -71,4 +67,6 @@ def main():
     for row in result:
         print(row)
 
-main()
+        
+if __name__ == "__main__":
+    main()

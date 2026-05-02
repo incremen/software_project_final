@@ -3,7 +3,7 @@
 #include "symnmf.h" 
 #include "matrix_utils.h"
 
-// Converts a Python List of Lists into our contiguous C double** matrix
+// Converts a Python List of Lists into contiguous C double** matrix
 static double** py_list_to_c_matrix(PyObject* py_matrix, int n, int d) {
     int i, j;
     double** c_matrix = alloc_matrix(n, d); 
@@ -46,7 +46,6 @@ static PyObject* sym_wrapper(PyObject* self, PyObject* args) {
     // Get dimensions
     n = PyObject_Length(py_datapoints);
     d = PyObject_Length(PyList_GetItem(py_datapoints, 0));
-    // printf("Received n: %d, d: %d\n", n, d); // Debug print
     // Convert to C
     double** X = py_list_to_c_matrix(py_datapoints, n, d);
 
@@ -55,7 +54,7 @@ static PyObject* sym_wrapper(PyObject* self, PyObject* args) {
     // 3. Convert back to Python
     PyObject* py_result = c_matrix_to_py_list(A, n, n);
 
-    // 4. CLEAN UP MEMORY! (Crucial step)
+    // Free memory
     free_matrix(X,n);
     free_matrix(A,n);
 
@@ -84,6 +83,7 @@ static PyObject* ddg_wrapper(PyObject* self, PyObject* args) {
     // 3. Convert back to Python
     PyObject* py_result = c_matrix_to_py_list(A, n, n);
 
+    // Free memory
     free_matrix(X, n);
     free_matrix(A, n);
 
@@ -112,6 +112,7 @@ static PyObject* norm_wrapper(PyObject* self, PyObject* args) {
     // 3. Convert back to Python
     PyObject* py_result = c_matrix_to_py_list(A, n, n);
 
+    // Free memory
     free_matrix(X, n);
     free_matrix(A, n);
 
@@ -131,11 +132,12 @@ static PyObject* symnmf_wrapper(PyObject* self, PyObject* args) {
     n = PyObject_Length(py_W);
     k = PyObject_Length(PyList_GetItem(py_H, 0));
 
-        // Convert to C
+    // Convert to C
     double** H = py_list_to_c_matrix(py_H, n, k);
     double** W = py_list_to_c_matrix(py_W, n, n);
     double** result = optimize_symnmf(W, H, n, k);
     PyObject* py_result = c_matrix_to_py_list(result, n, k);
+
     // Free memory
     free_matrix(H, n);
     free_matrix(W, n);
